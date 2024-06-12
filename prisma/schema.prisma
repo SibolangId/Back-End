@@ -1,0 +1,42 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model users {
+  user_id      Int            @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  email        String         @unique
+  password     String
+  destinations destinations[]
+  favorites    favorites[]
+}
+
+model destinations {
+  destination_id Int         @id @default(autoincrement())
+  user_id        Int?
+  name           String      @db.VarChar(100)
+  description    String?     @db.Text
+  location       String?     @db.VarChar(255)
+  image_url      String?     @db.VarChar(255)
+  users          users?      @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "destinations_ibfk_1")
+  favorites      favorites[]
+
+  @@index([user_id], map: "user_id")
+}
+
+model favorites {
+  favorite_id    Int           @id @default(autoincrement())
+  user_id        Int?
+  destination_id Int?
+  users          users?        @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "favorites_ibfk_1")
+  destinations   destinations? @relation(fields: [destination_id], references: [destination_id], onDelete: Restrict, onUpdate: Restrict, map: "favorites_ibfk_2")
+
+  @@index([user_id], map: "user_id")
+  @@index([destination_id], map: "destination_id")
+}
