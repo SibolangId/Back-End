@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const userRouter = require("./Apis/Users/user.router");
+const destinationRouter = require("./Apis/Destinations/destination.router");
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 
 // Use routes
 app.use("/api/users", userRouter);
+app.use("/api/destinations", destinationRouter);
 
 app.get('/api', (req, res) => {
     res.send("Hello World");
