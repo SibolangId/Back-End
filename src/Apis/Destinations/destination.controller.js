@@ -3,26 +3,43 @@ const {
     getDestinationById,
     getDestinations,
     updateDestination,
-    deleteDestination
+    deleteDestination,
 } = require("./destination.service");
+const { saveImageBlob } = require("../../middlewares/image_blob");
+const upload = require("../../middlewares/upload");
 
 module.exports = {
-    createDestination: (req, res) => {
-        const body = req.body;
-        createDestination(body, (err, results) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).json({
-                success: 0,
-                message: "Database connection error"
+    createDestination: [
+        upload.single("image"),
+        async (req, res) => {
+            const body = req.body;
+            try {
+                if (req.file) {
+                    const optimizedImageBuffer = await saveImageBlob(req.file.buffer);
+                    body.image_blob = optimizedImageBuffer;
+                }
+                createDestination(body, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).json({
+                            success: 0,
+                            message: "Database connection error",
+                        });
+                    }
+                    return res.status(200).json({
+                        success: 1,
+                        data: results,
+                    });
+                });
+            } catch (err) {
+                console.error(err);
+                res.status(500).json({
+                    success: 0,
+                    message: "Error processing image",
                 });
             }
-            return res.status(200).json({
-                success: 1,
-                data: results
-            });
-        });
-    },
+        },
+    ],
 
     getDestinationById: (req, res) => {
         const id = req.params.id;
@@ -33,13 +50,13 @@ module.exports = {
             }
             if (!results) {
                 return res.json({
-                success: 0,
-                message: "Record not found"
+                    success: 0,
+                    message: "Record not found",
                 });
             }
             return res.json({
                 success: 1,
-                data: results
+                data: results,
             });
         });
     },
@@ -52,43 +69,63 @@ module.exports = {
             }
             return res.json({
                 success: 1,
-                data: results
+                data: results,
             });
         });
     },
 
-    updateDestination: (req, res) => {
-        const body = req.body;
-            updateDestination(body, (err, results) => {
-            if (err) {
-                console.log(err);
-                return;
+    updateDestination: [
+        upload.single("image"),
+        async (req, res) => {
+            const body = req.body;
+            try {
+                if (req.file) {
+                    const optimizedImageBuffer = await saveImageBlob(req.file.buffer);
+                    body.image_blob = optimizedImageBuffer;
+                }
+                updateDestination(body, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).json({
+                            success: 0,
+                            message: "Database connection error",
+                        });
+                    }
+                    return res.status(200).json({
+                        success: 1,
+                        message: "Updated successfully",
+                    });
+                });
+            } catch (err) {
+                console.error(err);
+                res.status(500).json({
+                    success: 0,
+                    message: "Error processing image",
+                });
             }
-            return res.json({
-                success: 1,
-                message: "updated successfully"
-            });
-        });
-    },
+        },
+    ],
 
     deleteDestination: (req, res) => {
         const id = req.params.id;
         deleteDestination(id, (err, results) => {
             if (err) {
                 console.log(err);
-                return;
+                return res.status(500).json({
+                    success: 0,
+                    message: "Database connection error",
+                });
             }
             if (!results) {
                 return res.json({
                     success: 0,
-                    message: "Record not found"
+                    message: "Record not found",
                 });
             }
-                return res.json({
-                    success: 1,
-                    message: "Destination deleted successfully"
-                });
+            return res.json({
+                success: 1,
+                message: "Destination deleted successfully",
+            });
         });
-    }
+    },
 };
-

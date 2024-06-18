@@ -18,13 +18,13 @@ model users {
 }
 
 model destinations {
-  destination_id Int         @id @default(autoincrement())
+  destination_id Int      @id @default(autoincrement())
   user_id        Int?
-  name           String      @db.VarChar(100)
-  description    String?     @db.Text
-  location       String?     @db.VarChar(255)
-  image_url      String?     @db.VarChar(255)
-  users          users?      @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "destinations_ibfk_1")
+  name           String   @db.VarChar(100)
+  description    String?  @db.Text
+  location       String?  @db.VarChar(255)
+  image_blob     Bytes?
+  users          users?   @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "destinations_ibfk_1")
   favorites      favorites[]
 
   @@index([user_id], map: "user_id")
