@@ -4,7 +4,7 @@ const {
   getUserByUserId,
   getUsers,
   updateUser,
-  deleteUser
+  deleteUser,
 } = require("./user.service");
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
@@ -20,16 +20,16 @@ module.exports = {
         console.log(err);
         return res.status(500).json({
           success: 0,
-          message: "Database connection error"
+          message: "Database connection error",
         });
       }
       return res.status(200).json({
         success: 1,
-        data: results
+        data: results,
       });
     });
   },
-  
+
   login: (req, res) => {
     const body = req.body;
     getUserByUserEmail(body.email, (err, results) => {
@@ -39,24 +39,24 @@ module.exports = {
       if (!results) {
         return res.json({
           success: 0,
-          data: "Invalid email or password"
+          data: "Invalid email or password",
         });
       }
       const result = compareSync(body.password, results.password);
       if (result) {
         results.password = undefined;
         const jsontoken = sign({ result: results }, process.env.JWT_SECRET, {
-          expiresIn: "1h"
+          expiresIn: "1h",
         });
         return res.json({
           success: 1,
           message: "login successfully",
-          token: jsontoken
+          token: jsontoken,
         });
       } else {
         return res.json({
           success: 0,
-          data: "Invalid email or password"
+          data: "Invalid email or password",
         });
       }
     });
@@ -71,13 +71,13 @@ module.exports = {
       if (!results) {
         return res.json({
           success: 0,
-          message: "Record not Found"
+          message: "Record not Found",
         });
       }
       results.password = undefined;
       return res.json({
         success: 1,
-        data: results
+        data: results,
       });
     });
   },
@@ -89,7 +89,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        data: results
+        data: results,
       });
     });
   },
@@ -104,7 +104,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: "updated successfully"
+        message: "updated successfully",
       });
     });
   },
@@ -118,13 +118,13 @@ module.exports = {
       if (!results) {
         return res.json({
           success: 0,
-          message: "Record Not Found"
+          message: "Record Not Found",
         });
       }
       return res.json({
         success: 1,
-        message: "user deleted successfully"
+        message: "user deleted successfully",
       });
     });
-  }
+  },
 };

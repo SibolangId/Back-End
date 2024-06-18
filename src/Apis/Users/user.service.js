@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
           lastName: data.lastName,
           email: data.email,
           password: data.password,
-        }
+        },
       });
       callBack(null, result);
     } catch (error) {
@@ -22,8 +22,8 @@ module.exports = {
     try {
       const result = await prisma.users.findUnique({
         where: {
-          email: email
-        }
+          email: email,
+        },
       });
       callBack(null, result);
     } catch (error) {
@@ -35,12 +35,12 @@ module.exports = {
     try {
       const result = await prisma.users.findUnique({
         where: {
-          user_id: id
+          user_id: id,
         },
         include: {
           destinations: true,
-          favorites: true
-        }
+          favorites: true,
+        },
       });
       callBack(null, result);
     } catch (error) {
@@ -53,8 +53,8 @@ module.exports = {
       const results = await prisma.users.findMany({
         include: {
           destinations: true,
-          favorites: true
-        }
+          favorites: true,
+        },
       });
       callBack(null, results);
     } catch (error) {
@@ -66,14 +66,14 @@ module.exports = {
     try {
       const result = await prisma.users.update({
         where: {
-          user_id: data.user_id
+          user_id: data.user_id,
         },
         data: {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
-          password: data.password
-        }
+          password: data.password,
+        },
       });
       callBack(null, result);
     } catch (error) {
@@ -85,12 +85,12 @@ module.exports = {
     try {
       const result = await prisma.users.delete({
         where: {
-          user_id: id
-        }
+          user_id: id,
+        },
       });
       callBack(null, result);
     } catch (error) {
       callBack(error);
     }
-  }
+  },
 };
