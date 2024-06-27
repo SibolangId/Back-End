@@ -6,8 +6,8 @@ module.exports = {
     try {
       const result = await prisma.users.create({
         data: {
-          firstName: data.firstName,
-          lastName: data.lastName,
+          fullName: data.fullName,
+          userName: data.userName,
           email: data.email,
           password: data.password,
         },
@@ -69,8 +69,8 @@ module.exports = {
           user_id: data.user_id,
         },
         data: {
-          firstName: data.firstName,
-          lastName: data.lastName,
+          fullName: data.fullName,
+          userName: data.userName,
           email: data.email,
           password: data.password,
         },

@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors"); // Import modul cors
 const userRouter = require("./Apis/Users/user.router");
 const destinationRouter = require("./Apis/Destinations/destination.router");
 const favoriteRouter = require("./Apis/Favorites/favorites.router");
@@ -10,9 +11,10 @@ const app = express();
 const PORT = process.env.PORT;
 const HOST = process.env.HOST;
 
+app.use(cors()); // Gunakan middleware cors
 app.use(express.json());
 
-// Use routes
+// Gunakan routes
 app.use("/api/users", userRouter);
 app.use("/api/destinations", destinationRouter);
 app.use("/api/favorites", favoriteRouter);
