@@ -9,8 +9,8 @@ generator client {
 
 model users {
   user_id      Int            @id @default(autoincrement())
-  firstName    String
-  lastName     String
+  fullName     String
+  userName     String
   email        String         @unique
   password     String
   destinations destinations[]

@@ -37,7 +37,7 @@ module.exports = {
         try {
             const result = await prisma.destinations.findUnique({
                 where: {
-                    destination_id: id
+                    destination_id: parseInt(id)
                 }
             });
             callBack(null, result);
@@ -55,20 +55,20 @@ module.exports = {
         }
     },
 
-    updateDestination: async (data, callBack) => {
+    updateDestination: async (id, data, callBack) => {
         try {
             const base64Image = await convertImageToBase64(data.image_blob);
             data.image_blob = base64Image;
             const result = await prisma.destinations.update({
                 where: {
-                    destination_id: data.destination_id
+                    destination_id: parseInt(id)
                 },
                 data: {
                     user_id: data.user_id,
                     name: data.name,
                     description: data.description,
                     location: data.location,
-                    image_blob: data.image_blob
+                    image_blob: base64Image
                 }
             });
             callBack(null, result);
@@ -81,7 +81,7 @@ module.exports = {
         try {
             const result = await prisma.destinations.delete({
                 where: {
-                    destination_id: data.destination_id
+                    destination_id: parseInt(id)
                 }
             });
             callBack(null, result);

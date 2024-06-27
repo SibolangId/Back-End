@@ -6,13 +6,13 @@ const {
     getDestinationById,
     getDestinations,
     updateDestination,
-    deleteDestination,
+    deleteDestinationController,
 } = require("./destination.controller");
 
 router.get("/", checkToken, getDestinations);
-router.post("/", checkToken, createDestination);
-router.get("/:id", checkToken, getDestinationById);
-router.patch("/", checkToken, updateDestination);
-router.delete("/:id", checkToken, deleteDestination);
+router.post("/", createDestination);
+router.get("/:id", getDestinationById);
+router.patch("/:id", updateDestination);
+router.delete("/:id", deleteDestinationController);
 
 module.exports = router;

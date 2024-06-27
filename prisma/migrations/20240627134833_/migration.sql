@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE `users` (
     `user_id` INTEGER NOT NULL AUTO_INCREMENT,
-    `firstName` VARCHAR(191) NOT NULL,
-    `lastName` VARCHAR(191) NOT NULL,
+    `fullname` VARCHAR(191) NOT NULL,
+    `userName` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
 
@@ -17,7 +17,7 @@ CREATE TABLE `destinations` (
     `name` VARCHAR(100) NOT NULL,
     `description` TEXT NULL,
     `location` VARCHAR(255) NULL,
-    `image_url` VARCHAR(255) NULL,
+    `image_blob` LONGBLOB NULL,
 
     INDEX `user_id`(`user_id`),
     PRIMARY KEY (`destination_id`)

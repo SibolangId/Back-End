@@ -46,7 +46,10 @@ module.exports = {
         getDestinationById(id, (err, results) => {
             if (err) {
                 console.log(err);
-                return;
+                return res.status(500).json({
+                    success: 0,
+                    message: "Database connection error",
+                });
             }
             if (!results) {
                 return res.json({
@@ -65,7 +68,10 @@ module.exports = {
         getDestinations((err, results) => {
             if (err) {
                 console.log(err);
-                return;
+                return res.status(500).json({
+                    success: 0,
+                    message: "Database connection error",
+                });
             }
             return res.json({
                 success: 1,
@@ -78,12 +84,13 @@ module.exports = {
         upload.single("image"),
         async (req, res) => {
             const body = req.body;
+            const id = req.params.id;
             try {
                 if (req.file) {
                     const optimizedImageBuffer = await saveImageBlob(req.file.buffer);
                     body.image_blob = optimizedImageBuffer;
                 }
-                updateDestination(body, (err, results) => {
+                updateDestination(id, body, (err, results) => {
                     if (err) {
                         console.log(err);
                         return res.status(500).json({
@@ -94,6 +101,7 @@ module.exports = {
                     return res.status(200).json({
                         success: 1,
                         message: "Updated successfully",
+                        data: results,
                     });
                 });
             } catch (err) {
@@ -106,7 +114,7 @@ module.exports = {
         },
     ],
 
-    deleteDestination: (req, res) => {
+    deleteDestinationController: (req, res) => {
         const id = req.params.id;
         deleteDestination(id, (err, results) => {
             if (err) {
