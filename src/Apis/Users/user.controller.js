@@ -1,6 +1,6 @@
 const {
   create,
-  getUserByUserEmail,
+  getUserByUserName,
   getUserByUserId,
   getUsers,
   updateUser,
@@ -32,14 +32,14 @@ module.exports = {
 
   login: (req, res) => {
     const body = req.body;
-    getUserByUserEmail(body.email, (err, results) => {
+    getUserByUserName(body.userName, (err, results) => {
       if (err) {
         console.log(err);
       }
       if (!results) {
         return res.json({
           success: 0,
-          data: "Invalid email or password",
+          data: "Invalid userName or password",
         });
       }
       const result = compareSync(body.password, results.password);
