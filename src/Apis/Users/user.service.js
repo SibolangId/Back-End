@@ -18,11 +18,11 @@ module.exports = {
     }
   },
 
-  getUserByUserEmail: async (email, callBack) => {
+  getUserByUserName: async (userName, callBack) => {
     try {
-      const result = await prisma.users.findUnique({
+      const result = await prisma.users.findFirst({
         where: {
-          email: email,
+          userName: userName,
         },
       });
       callBack(null, result);
@@ -33,7 +33,7 @@ module.exports = {
 
   getUserByUserId: async (id, callBack) => {
     try {
-      const result = await prisma.users.findUnique({
+      const result = await prisma.users.findFirst({
         where: {
           user_id: id,
         },
