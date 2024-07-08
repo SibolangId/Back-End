@@ -23,7 +23,7 @@ model destinations {
   name           String   @db.VarChar(100)
   description    String?  @db.Text
   location       String?  @db.VarChar(255)
-  image_blob     Bytes?
+  image_blob     String?  // Mengubah tipe dari Bytes? menjadi String?
   users          users?   @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "destinations_ibfk_1")
   favorites      favorites[]
 
@@ -40,3 +40,4 @@ model favorites {
   @@index([user_id], map: "user_id")
   @@index([destination_id], map: "destination_id")
 }
+

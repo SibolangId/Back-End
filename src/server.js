@@ -13,6 +13,7 @@ const HOST = process.env.HOST;
 
 app.use(cors()); // Gunakan middleware cors
 app.use(express.json());
+app.use('/images', express.static('public/images'));
 
 // Gunakan routes
 app.use("/api/users", userRouter);

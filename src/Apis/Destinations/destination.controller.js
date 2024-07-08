@@ -5,8 +5,20 @@ const {
     updateDestination,
     deleteDestination,
 } = require("./destination.service");
-const { saveImageBlob } = require("../../middlewares/image_blob");
-const upload = require("../../middlewares/upload");
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
+
+// Middleware untuk mengolah gambar yang diunggah
+const storage = multer.diskStorage({
+    destination: './public/images/',
+    filename: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        const fileName = file.fieldname + '-' + Date.now() + ext;
+        cb(null, fileName);
+    }
+});
+const upload = multer({ storage: storage });
 
 module.exports = {
     createDestination: [
@@ -15,8 +27,8 @@ module.exports = {
             const body = req.body;
             try {
                 if (req.file) {
-                    const optimizedImageBuffer = await saveImageBlob(req.file.buffer);
-                    body.image_blob = optimizedImageBuffer;
+                    const imagePath = req.file.path;
+                    body.image_blob = imagePath;
                 }
                 createDestination(body, (err, results) => {
                     if (err) {
@@ -87,8 +99,8 @@ module.exports = {
             const id = req.params.id;
             try {
                 if (req.file) {
-                    const optimizedImageBuffer = await saveImageBlob(req.file.buffer);
-                    body.image_blob = optimizedImageBuffer;
+                    const imagePath = req.file.path;
+                    body.image_blob = imagePath;
                 }
                 updateDestination(id, body, (err, results) => {
                     if (err) {
