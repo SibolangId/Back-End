@@ -14,14 +14,9 @@ Untuk memulai, pastikan Anda mengunduh repository backend ke dalam lingkungan lo
    git clone https://github.com/SibolangId/Back-End.git
 
 2. **Instalasi Server Backend:**
-   Setelah mengunduh repository, lanjutkan dengan langkah-langkah instalasi server backend:
-   
+   Setelah mengunduh repository, lanjutkan dengan langkah-langkah instalasi server backend:  
    ```sh
    cd Back-End
-
-   ```sh
    npm install
-
-   ```sh
    npm run start
    
