@@ -1,46 +1,27 @@
-## Inisialisasi dan Konfigurasi Git
+# Panduan Mengunduh Repository dan Instalasi Server Backend
 
-1. **Setel email pengguna GitHub:**
-    ```sh
-    git config --global user.email "email_yang_digunakan_di_github"
-    ```
+Berikut adalah langkah-langkah untuk mengunduh repository backend dari GitHub dan melakukan instalasi server backend.
 
-2. **Inisialisasi repository Git:**
-    ```sh
-    git init
-    ```
-    
-3. **Berpindah antar branch:**
-    ```sh
-    git branch -M master / git branch -M main
-    ```
-    nb: ganti master dengan branch yang di inginkan
-    
-4. **Inisialisasi repository Git:**
-    ```sh
-    git add .
-    ```
+## Mengunduh Repository
 
-5. **Tambahkan remote repository:**
-    ```sh
-    git remote add origin https://github.com/SibolangId/Back-End.git
-    ```
+Untuk memulai, pastikan Anda mengunduh repository backend ke dalam lingkungan lokal Anda:
 
-6. **Lakukan commit dengan pesan:**
-    ```sh
-    git commit -m "Perubahan ke-1 seterusnya"
-    ```
+1. **Clone repository dari GitHub:**
 
-7. **Push ke branch utama (main atau master):**
-    - Jika menggunakan branch `main`:
-        ```sh
-        git push -u origin main
-        ```
-    - Jika menggunakan branch `master`:
-        ```sh
-        git push origin -u master
-        ```
-8. **Mengambil file dari github**
-    ```sh
-    git pull
-    ```
+   Untuk mengambil semua file dari repositori backend, gunakan perintah berikut di terminal Anda:
+
+   ```sh
+   git clone https://github.com/SibolangId/Back-End.git
+
+2. **Instalasi Server Backend:**
+   Setelah mengunduh repository, lanjutkan dengan langkah-langkah instalasi server backend:
+   
+   ```sh
+   cd Back-End
+
+   ```sh
+   npm install
+
+   ```sh
+   npm run start
+   
