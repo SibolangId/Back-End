@@ -11,9 +11,9 @@ const {
 
 router.get("/", checkToken, getUsers);
 router.post("/", createUser);
-router.get("/:id", checkToken, getUserByUserId);
+router.get("/:id", getUserByUserId);
 router.post("/login", login);
 router.patch("/", checkToken, updateUsers);
-router.delete("/", checkToken, deleteUser);
+router.delete("/", deleteUser);
 
 module.exports = router;
