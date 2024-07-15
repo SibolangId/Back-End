@@ -30,6 +30,9 @@ module.exports = {
                     const imagePath = req.file.path;
                     body.image_blob = imagePath;
                 }
+                // Konversi user_id menjadi Int
+                body.user_id = parseInt(body.user_id, 10);
+
                 createDestination(body, (err, results) => {
                     if (err) {
                         console.log(err);
@@ -102,6 +105,9 @@ module.exports = {
                     const imagePath = req.file.path;
                     body.image_blob = imagePath;
                 }
+                // Konversi user_id menjadi Int
+                body.user_id = parseInt(body.user_id, 10);
+
                 updateDestination(id, body, (err, results) => {
                     if (err) {
                         console.log(err);
