@@ -2,7 +2,7 @@
 FROM node:16
 
 # Set work directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Salin file package.json dan package-lock.json
 COPY package*.json ./
